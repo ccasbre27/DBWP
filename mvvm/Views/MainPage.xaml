@@ -1,0 +1,48 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="MVVM.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:MVVM.ViewModels"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <local:CamerasViewModel x:Key="ViewModel" />
+        
+        <DataTemplate
+            x:Key="CameraDataTemplate">
+            <TextBlock 
+                Text="{Binding Name}"
+                FontFamily="Seoe UI Light"
+                FontSize="28"
+                Margin="0 0 0 10"/>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <Grid 
+        DataContext="{Binding Source={StaticResource ViewModel}}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <phone:LongListSelector 
+            ItemsSource="{Binding CameraList}"
+            ItemTemplate="{Binding CameraDataTemplate}"/>
+        
+        <Button
+            Content="Consultar Lista de cámaras"
+            Grid.Row="1" 
+            Command="{Binding GetCamerasCommand}"/>
+        
+    </Grid>
+
+</phone:PhoneApplicationPage>
